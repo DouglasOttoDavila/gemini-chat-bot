@@ -20,11 +20,8 @@ You can configure this application for your own needs by simply following these 
 - Start chatting with the bot!
 
 ## API Endpoints ##
-/process_message
-This endpoint handles HTTP POST requests to process a message. It expects a JSON payload with a message field.
-
-/prompts
-This endpoint returns a JSON response containing a list of available prompts.
+- `/process_message`: This endpoint handles HTTP POST requests to process a message. It expects a JSON payload with a message field.
+- `/prompts`: This endpoint returns a JSON response containing a list of available prompts.
 
 ## License ##
 This project is licensed under the MIT License.

@@ -14,8 +14,5 @@ INITIAL_PROMPT = {
 }
 
 prompt_safety = {
-  "female_sex" : "unsafe",
-  "male_sex" : "unsafe",
-  "medical_service" : "safe",
   "qa_bot" : "safe",
 }

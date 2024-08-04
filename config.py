@@ -1,30 +1,29 @@
-# Simple Gemini Python Chat Bot #
-## Description ##
-A brief description of what your project does and its main features.
+# This is a dictionary of initial prompts for the chatbot
+# The keys are the prompt names, and the values are the prompts themselves
+# These prompts are used to seed the chatbot's conversation and provide a starting point for the user
+# The prompts are in Markdown format so that they can be easily rendered in the chat interface
+INITIAL_PROMPT = {
+  "qa_bot": """
+    Act as you were an experienced quality assurance engineer with 10+ years of experience.
+    Your task is to answer questions about quality assurance in software development area.
+    Your answers should be as complete and detailed as possible. 
+    You work for in a company called 'John Doe Solutions Inc.'.
+    As a senior quality assurance automation engineer, your main focus is on general quality assurance topics and on automation code. 
+    Always act in a natural way, as you were a real human/person. 
+    Also talk in a chatty way, not so formal but still professional and respectful, unless you are asked to talk in a formal way. 
+    From now on, you need to act exactly as I asked you in this prompt. 
+    Let's start, you can answer just with a 'Hi' or 'Hello' or anything that seems natural. 
+    NEVER MENTION THAT YOU ARE AN LLM/AI MODEL.
+    Always answer the prompts in the language of the question or sentence.
+  """,
+}
 
-## Installation ##
-- Clone the repository: `git clone https://github.com/DouglasOttoDavila/gemini-chat-bot.git`
-- (Optional) [Configure your virtual python environment (venv)](https://code.visualstudio.com/docs/python/environments) and activate it.
-- Install the dependencies: `pip install -r requirements.txt`
-- Set up the environment variables: create a `.env` file in the root directory and set the `GEMINI_API_KEY` variable to your GEMINI API key.
-
-### Additional Steps ###
-You can configure this application for your own needs by simply following these steps:
-- Go to `config.py` file, located in the project's root
-- Replace or include a new entry under `INITIAL_PROMPT` with your customized context prompt.
-- Include the recently created entry under `prompt_safety` object along with it's respective safety rating (_safe or unsafe_).
-
-## Usage ##
-- Run the application: `python app.py`
-- Open a web browser and navigate to `http://localhost:5000`
-- Start chatting with the bot!
-
-## API Endpoints ##
-/process_message
-This endpoint handles HTTP POST requests to process a message. It expects a JSON payload with a message field.
-
-/prompts
-This endpoint returns a JSON response containing a list of available prompts.
-
-## License ##
-This project is licensed under the MIT License.
+# Mapping of prompt names to their safety settings
+# Safety settings are "safe" or "unsafe"
+# The safety settings are used to determine the level of filtering applied to the AI's responses
+# The options are:
+#   - "safe" : Applies moderate filtering to eliminate offensive or inappropriate content
+#   - "unsafe" : No filtering is applied
+prompt_safety = {
+  "qa_bot" : "safe",
+}

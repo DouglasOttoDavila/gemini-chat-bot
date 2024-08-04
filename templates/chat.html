@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Gemini AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">  
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <div class="main-container">
+        <div class="upper-data">
+            <div class="name-container">
+                <label for="name-input">Your Name:</label>
+                <input type="text" class="input" id="name-input">         
+            </div>
+            <div class="dropdown-container">
+                <label for="prompt-select">Select a Prompt:</label>
+                <select class="input" id="prompt-select">
+                    
+                </select>
+                <div id="prompt-data" data-prompts='{{ initial_prompts | tojson | safe }}'></div>
+            </div>
+        </div>
+        <div class="chat-container">
+            <div class="chat-messages">
+                <ul id="message-list"></ul>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="user-message" placeholder="Type your message...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>   
+    </div>
+    <script>
+        console.log(marked);
+        document.getElementById('user-message').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            var promptDataElement = document.getElementById('prompt-data');
+            var initialPrompts = JSON.parse(promptDataElement.getAttribute('data-prompts'));
+            var dropdown = document.getElementById('prompt-select');
+            // Populate dropdown with values from INITIAL_PROMPT
+            for (var key in initialPrompts) {
+                var option = document.createElement('option');
+                option.value = key;
+                option.textContent = key;
+                dropdown.appendChild(option);
+            }
+        });
+        // Function that sends a message from the user to the server for processing and displays the response in the chat messages container
+        function sendMessage() {
+            var message = document.getElementById("user-message").value;
+            var prompt = document.getElementById("prompt-select").value;  // Get selected prompt
+            var name = document.getElementById('name-input').value;
+
+            if (message.trim() === "") return;
+
+            var li = document.createElement("li");
+            li.innerHTML  = `<strong>${name}: </strong>${message}`;
+            document.getElementById("message-list").appendChild(li);
+            document.getElementById("user-message").value = "";
+
+            // Send the message to the server for processing
+            fetch('/process_message', {
+                method: 'POST',
+                body: JSON.stringify({ message: message, prompt: prompt, name: name }),  
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                var responseLi = document.createElement("li");
+                // Convert markdown to HTML
+                responseLi.innerHTML = "<b>Gemini AI: </b>" + marked.parse(data.response); 
+                document.getElementById("message-list").appendChild(responseLi);
+
+                // Scroll to the bottom of the chat messages container
+                var chatMessages = document.querySelector('.chat-messages');
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            });
+        }
+    </script>
+</body>
+</html>

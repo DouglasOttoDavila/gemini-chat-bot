@@ -1,6 +1,15 @@
 # Simple Gemini Python Chat Bot #
 ## Description ##
-A brief description of what your project does and its main features.
+The Gemini Python Chat Bot is a web-based chatbot application that utilizes the GEMINI language model to generate human-like responses to user queries.
+
+## Features ##
+- **Chat Interface**: The chatbot is accessible through a web-based interface, allowing users to interact with it by typing their questions.
+- **GEMINI Language Mode**l: The chatbot leverages the GEMINI language model, which is a state-of-the-art large language model trained on a diverse range of internet text. It generates responses based on the user's input.
+- **Initial Prompts**: The chatbot is seeded with initial prompts that provide a starting point for the conversation. These prompts are stored in the INITIAL_PROMPT dictionary.
+- **Safety Settings**: The chatbot has safety settings that determine the level of filtering applied to its responses. The safety settings are defined in the prompt_safety dictionary.
+- **API Endpoints**: The chatbot exposes two API endpoints: /process_message for processing user messages and /prompts for retrieving a list of available prompts.
+- **Configuration**: The application can be configured by adding or modifying prompts in the config.py file.
+Dependencies: The project relies on the Flask framework, the iPython library, the protobuf library, and the python-dotenv library.
 
 ## Installation ##
 - Clone the repository: `git clone https://github.com/DouglasOttoDavila/gemini-chat-bot.git`
